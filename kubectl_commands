@@ -1,0 +1,68 @@
+ **Kubectl Commands**
+ 
+ kubectl get svc 
+ 
+ kubectl get pods
+ 
+ kubectl apply -f app_name
+ 
+ kubectl logs -c -p -f container_name
+ 
+ kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml      #for metrics 
+ 
+ kubectl get deployment metrics-server -n kube-system
+ 
+ kubectl top [flags] [options]  kubectl top nodes, pods                                                            #Display Resource (CPU/Memory/Storage) usage.
+ 
+ kubectl logs my-pod                                                # dump pod logs (stdout)
+ 
+kubectl logs -l name=myLabel                                        # dump pod logs, with label name=myLabel (stdout)
+
+kubectl logs my-pod --previous                                      # dump pod logs (stdout) for a previous instantiation of a container
+
+kubectl logs my-pod -c my-container                                 # dump pod container logs (stdout, multi-container case)
+
+kubectl logs -l name=myLabel -c my-container                        # dump pod logs, with label name=myLabel (stdout)
+
+kubectl logs my-pod -c my-container --previous                      # dump pod container logs (stdout, multi-container case) for a previous instantiation of a container
+
+kubectl logs -f my-pod                                              # stream pod logs (stdout)
+
+kubectl logs -f my-pod -c my-container                              # stream pod container logs (stdout, multi-container case)
+
+kubectl logs -f -l name=myLabel --all-containers                    # stream all pods logs with label name=myLabel (stdout)
+ 
+kubectl logs deploy/my-deployment                                   # dump Pod logs for a Deployment (single-container case)
+
+
+
+https://kubernetes.io/docs/tasks/debug-application-cluster/debug-pod-replication-controller/
+
+ **Debugging Pods**
+ 
+ kubectl describe pods ${POD_NAME}
+ 
+ If a pod is stuck in Pending it means that it can not be scheduled onto a node. Generally this is because there are insufficient resources of one type or another that prevent scheduling. Look at the output of the kubectl describe ... command above. There should be messages from the scheduler about why it can not schedule your pod.**
+ You may have exhausted the supply of CPU or Memory in your cluster. In this case you can try several things:
+ Add more nodes to the cluster.Terminate unneeded pods to make room for pending pods.
+ You can check node capacities with the kubectl get nodes -o <format> command.
+**
+kubectl get nodes -o yaml | egrep '\sname:|cpu:|memory:'
+
+kubectl get nodes -o json | jq '.items[] | {name: .metadata.name, cap: .status.capacity}'
+  
+kubectl scale [--resource-version=version] [--current-replicas=count] --replicas=COUNT (-f FILENAME | TYPE NAME)
+
+kubectl cluster-info    
+
+kubectl scale --replicas=3 rs/foo 
+  
+  
+ 
+ 
+ 
+ 
+ 
+
+**
+  
