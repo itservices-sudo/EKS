@@ -3,7 +3,7 @@
  
 # Installing Docker on Amazon Linux server
 
-1.Update packages
+1.Update package
 ```sh 
 yum update -y
 ```
