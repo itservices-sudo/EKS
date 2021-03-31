@@ -18,7 +18,8 @@ chmod +x ./kubectl
 mkdir -p $HOME/bin && cp ./kubectl $HOME/bin/kubectl && export PATH=$PATH:$HOME/bin
 echo 'export PATH=$PATH:$HOME/bin' >> ~/.bashrc
 kubectl version --short --client
+aws configure
 aws eks --region ap-south-1 describe-cluster --name  cluster-name --query cluster.status
 aws eks --region ap-south-1 update-kubeconfig --name cluster-name
 kubectl get svc
-aws configure
+
