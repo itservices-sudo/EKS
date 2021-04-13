@@ -1,0 +1,55 @@
+Steps to create AWS EKS Cluster with worker nodes  Note :- Dont use root account to create EKS Cluster
+
+1) Create IAM roles for EKS Cluster
+Select EKS 
+Then select EKS Cluster
+Click on Next Permission
+Give Tags
+Give Role Name
+Create Role
+
+2) Create dedicated VPC or you can use default VPC
+
+3) Create EKS Cluster
+Got to cluster give name to cluster
+seldct endpoint acceess
+select VPC security group
+create cluster
+EKS cluster takes 10 min to spin up 
+
+4) Install & Setup AWSCLI, IAM Authenticator and kubectl to access our cluster
+Install AWS CLI and configure AWS user
+Install AWS IAM Authenticator
+Install kubectl 
+
+5) TO add created cluster 
+aws eks --region region_name update-kubeconfig --name cluster-name
+export kubeconfig file
+access cluster thru kubectl command
+kubectl get svc (it will show you cluster)
+
+6) Create IAM roles for workernodes
+Create ROle for EC2
+Give Permissions
+Select AWS-EKS CNI Policy, AWS-EKS worker-Node policy, EC2 Container Read-only Policy.
+Give name to role create role
+
+7) Create Worker Nodes
+Got to EKS
+Select Compute Tab
+Create Node Group
+Give name for group
+Attach role to group that we've created in earlier step.
+Allow to remorte access node to ssh our nodes
+select key pair
+select security groupselect instance type for Node.
+select scaling info.
+Review & Create.
+Go to ec2 console.
+Then check thru this command kubectl get nodes.
+
+8) To deploy our app in cluster
+Clone our repository
+Then give this command kubectl apply -f app_name
+kubectl get svc
+kubectl get pods
